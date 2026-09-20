@@ -49,6 +49,9 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .requestMatchers("/error").permitAll()
+                // Tracking público sin token (tanto para /api/envios como /api/shipments)
+                .requestMatchers(HttpMethod.GET, "/api/envios/tracking/**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/shipments/tracking/**").permitAll()
                 // Envíos: solo Admin/Operador cambian estado; los tres roles listan y crean
                 .requestMatchers(HttpMethod.PUT, "/api/shipments/*/status").hasAnyRole("Admin", "Operador")
                 .requestMatchers("/api/shipments/**").hasAnyRole("Admin", "Operador", "Cliente")
