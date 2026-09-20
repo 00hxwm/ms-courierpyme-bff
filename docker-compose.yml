@@ -1,0 +1,30 @@
+
+
+services:
+  bff-svc:
+    build:
+      context: ../ms-courierpyme-bff
+    ports:
+      - "8081:8081"
+    networks:
+      - courier-net
+
+  shipments-svc:
+    build:
+      context: ../ms-courierpyme-envios
+    ports:
+      - "8080:8080"
+    networks:
+      - courier-net
+
+  catalog-svc:
+    build:
+      context: ../ms-courierpyme-catalog
+    ports:
+      - "8082:8082"
+    networks:
+      - courier-net
+
+networks:
+  courier-net:
+    driver: bridge
