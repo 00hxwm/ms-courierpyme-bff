@@ -53,6 +53,22 @@ services:
       - courier-net
     restart: unless-stopped
 
+  rabbit-admin-svc:
+    build:
+      context: ../ms-courierpyme-rabbit-admin
+    container_name: rabbit-admin-svc
+    env_file:
+      - .env
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - JAVA_OPTS=-Xmx256m
+    depends_on:
+      - rabbitmq
+    networks:
+      - courier-net
+    restart: unless-stopped
+
 networks:
   courier-net:
     driver: bridge
