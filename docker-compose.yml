@@ -10,8 +10,6 @@ services:
   shipments-svc:
     build:
       context: ./ms-courierpyme-shipments
-    ports:
-      - "8080:8080"
     environment:
       - DB_PASSWORD=${DB_PASSWORD}
     networks:
@@ -20,8 +18,6 @@ services:
   catalog-svc:
     build:
       context: ./ms-courierpyme-catalog
-    ports:
-      - "8082:8082"
     environment:
       - DB_PASSWORD=${DB_PASSWORD}
     networks:
