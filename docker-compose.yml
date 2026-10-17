@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   bff-svc:
     build:
@@ -36,6 +34,21 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
       - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASS}
+    networks:
+      - courier-net
+    restart: unless-stopped
+
+  notify-svc:
+    build:
+      context: ../ms-courierpyme-notify
+    env_file:
+      - .env
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - JAVA_OPTS=-Xmx256m
+    depends_on:
+      - rabbitmq
     networks:
       - courier-net
     restart: unless-stopped
