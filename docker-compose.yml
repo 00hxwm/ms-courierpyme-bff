@@ -15,6 +15,13 @@ services:
       context: ../ms-courierpyme-shipments
     env_file:
       - .env
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+      - SPRING_RABBITMQ_PORT=5672
+      - SPRING_RABBITMQ_USERNAME=${RABBITMQ_USER}
+      - SPRING_RABBITMQ_PASSWORD=${RABBITMQ_PASS}
+    depends_on:
+      - rabbitmq
     networks:
       - courier-net
     restart: unless-stopped
